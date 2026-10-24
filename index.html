@@ -13,13 +13,18 @@
     <form id="add-form">
       <input type="text" id="desc" placeholder="Description" required>
       <input type="number" id="amount" step="0.01" placeholder="Amount" required>
+      <select id="category"><option>Food</option><option>Transport</option><option>Bills</option><option>Other</option></select>
       <button type="submit">Add</button>
     </form>
+    <select id="filter"><option value="All">All</option><option>Food</option><option>Transport</option><option>Bills</option><option>Other</option></select>
   </div>
   <!-- Expense list -->
   <ul id="list"></ul>
   <!-- Total summary -->
   <p id="total"></p>
+  <!-- Category summary section -->
+  <section id="summary"></section>
   <script src="app.js"></script>
+  <script src="filter.js"></script>
 </body>
 </html>
