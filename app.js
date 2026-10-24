@@ -1,20 +1,21 @@
 // Application state
 const state = {
+  currency: 'USD',
   expenses: [
-    { description: 'Lunch', amount: 12.5 },
-    { description: 'Coffee', amount: 4.0 },
-    { description: 'Book', amount: 20.0 }
+    { description: 'Lunch', amountCents: 1250 },
+    { description: 'Coffee', amountCents: 400 },
+    { description: 'Book', amountCents: 2000 }
   ]
 };
 
-// Formats number to dollar string
-function formatAmount(n) {
-  return '$' + n.toFixed(2);
+// Formats cents to currency string
+function formatCurrency(amountCents, currency) {
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(amountCents / 100);
 }
 
 // Adds expense and re-renders
 function addExpense(description, amount) {
-  state.expenses.push({ description, amount });
+  state.expenses.push({ description, amountCents: Math.round(amount * 100) });
   render();
 }
 
@@ -22,14 +23,14 @@ function addExpense(description, amount) {
 function render() {
   const list = document.getElementById('list');
   list.innerHTML = '';
-  let sum = 0;
+  let sumCents = 0;
   state.expenses.forEach(e => {
-    sum += e.amount;
+    sumCents += e.amountCents;
     const li = document.createElement('li');
-    li.textContent = e.description + ' — ' + formatAmount(e.amount);
+    li.textContent = e.description + ' — ' + formatCurrency(e.amountCents, state.currency);
     list.appendChild(li);
   });
-  document.getElementById('total').textContent = 'Total: ' + formatAmount(sum);
+  document.getElementById('total').textContent = 'Total: ' + formatCurrency(sumCents, state.currency);
 }
 
 // Initializes event listeners and initial render
@@ -38,6 +39,10 @@ function init() {
     e.preventDefault();
     addExpense(document.getElementById('desc').value, parseFloat(document.getElementById('amount').value));
     e.target.reset();
+  });
+  document.getElementById('currency').addEventListener('change', e => {
+    state.currency = e.target.value;
+    render();
   });
   render();
 }
