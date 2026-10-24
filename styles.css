@@ -1,0 +1,9 @@
+/* Application layout and styling */
+body { font-family: sans-serif; max-width: 480px; margin: 2rem auto; padding: 0 1rem; }
+.controls { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+form { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+input, select, button { padding: 0.4rem; }
+ul { list-style: none; padding: 0; }
+li { padding: 0.4rem 0; border-bottom: 1px solid #eee; }
+#total { font-weight: bold; }
+#summary { margin-top: 1rem; border-top: 1px solid #ccc; }
